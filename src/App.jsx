@@ -1,25 +1,85 @@
-import { useState } from 'react'
-import './App.css'
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+function FormInput({
+  property,
+  textLabel,
+  content,
+  setContent,
+  type = "text",
+}) {
+  function handleChange(e) {
+    const newObject = { ...content };
+    newObject[property] = e.target.value;
+    setContent(newObject);
+  }
+
+  return (
+    <label htmlFor={property}>
+      {textLabel}:
+      <input
+        type={type}
+        value={content[property]}
+        id={property}
+        onChange={handleChange}
+      />
+    </label>
+  );
+}
+
+function Form({ content, setContent }) {
+  return (
+    <form action="POST">
+      <FormInput
+        content={content}
+        setContent={setContent}
+        property="name"
+        textLabel="Name"
+      />
+      <FormInput
+        content={content}
+        setContent={setContent}
+        property="email"
+        textLabel="Email"
+        type="email"
+      />
+      <FormInput
+        content={content}
+        setContent={setContent}
+        property="phoneNumber"
+        textLabel="Phone Number"
+        type="tel"
+      ></FormInput>
+    </form>
+  );
+}
+
+export default function App() {
+  const initialFormFields = {
+    name: "",
+    email: "",
+    phoneNumber: "",
+    schoolName: "",
+    degree: "",
+    graduationDate: "",
+    companyName: "",
+    jobTitle: "",
+    mainResponsibilities: "",
+    jobStartDate: "",
+    jobEndDate: "",
+  };
+
+  const [formInfo, setFormInfo] = useState(initialFormFields);
+
+  function CvDisplay({ content }) {
+    return;
+  }
 
   return (
     <>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>CV Builder</h1>
+      <Form content={formInfo} setContent={setFormInfo} />
     </>
-  )
+  );
 }
-
-export default App
