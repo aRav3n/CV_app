@@ -25,9 +25,28 @@ a:hover {
 body {
   margin: 0;
   display: flex;
+  justify-content: center;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+}
+
+#cv {
+  border: 1px solid #00000088;
+  display: grid;
+  min-height: 110vw;
+  padding: 3vh 3vw;
+  width: 85vw;
+}
+
+#cv > div > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+#cv h3 {
+  justify-self: start;
+  text-align: left;
 }
 
 h1 {
@@ -71,6 +90,11 @@ label {
   justify-content: space-between;
 }
 
+#root {
+  display: grid;
+  gap: 2vh;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -81,5 +105,21 @@ label {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@media print {
+  button {
+    display: none;
+  }
+
+  #cv {
+    border: none;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  h1 {
+    display: none;
   }
 }

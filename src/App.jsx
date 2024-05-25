@@ -125,7 +125,78 @@ function Form({ display, setDisplay, content, setContent }) {
   }
 }
 
+function CvDisplay({ notDisplay, setNotDisplay, content }) {
+  function handleClick() {
+    setNotDisplay(!notDisplay);
+  }
+
+  function ContactInfoSection() {
+    return (
+      <div>
+        <h2>{content.name}</h2>
+        <p>
+          {content.phoneNumber} | {content.email}
+        </p>
+      </div>
+    );
+  }
+
+  function WorkExperience() {
+    return (
+      <div>
+        <h2>Work Experience</h2>
+        <div className="spaceBetweenFields">
+          <span>{content.companyName}</span>
+          <span>
+            {content.jobStartDate} - {content.jobEndDate}
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  function Education() {
+    return (
+      <div>
+        <h2>Education</h2>
+        <h3>{content.schoolName}</h3>
+        <div className="spaceBetweenFields">
+          <span>{content.degree}</span>
+          <span>{content.graduationDate}</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (!notDisplay) {
+    return (
+      <>
+        <div id="cv">
+          <ContactInfoSection />
+          <WorkExperience />
+          <Education />
+        </div>
+        <button onClick={handleClick}>Edit your CV</button>
+      </>
+    );
+  }
+}
+
 export default function App() {
+  const sampleFields = {
+    name: "Andrew Ryan",
+    email: "xyz@gmail.com",
+    phoneNumber: "555-555-5555",
+    schoolName: "State University",
+    degree: "University Studies",
+    graduationDate: "",
+    companyName: "",
+    jobTitle: "",
+    mainResponsibilities: "",
+    jobStartDate: "",
+    jobEndDate: "",
+  };
+
   const initialFormFields = {
     name: "",
     email: "",
@@ -151,6 +222,11 @@ export default function App() {
         setDisplay={setEditorDisplayed}
         content={formInfo}
         setContent={setFormInfo}
+      />
+      <CvDisplay
+        notDisplay={editorDisplayed}
+        setNotDisplay={setEditorDisplayed}
+        content={formInfo}
       />
     </>
   );
